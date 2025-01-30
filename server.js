@@ -1,5 +1,6 @@
-const express = require('express');
+const express = require('express'); 
 const dotenv = require('dotenv');
+const cors = require('cors');
 const helmet = require('helmet');
 const connectDBMongoose = require('./config/dbMongoose');
 const { connectDBNative } = require('./config/dbNative');
@@ -12,6 +13,13 @@ const app = express();
 
 // Middleware Helmet (tanpa Content Security Policy)
 app.use(helmet());
+
+// Konfigurasi CORS
+app.use(cors({
+  origin: 'https://frontendmutias.vercel.app', // Hanya mengizinkan akses dari frontend ini
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
 
 app.use(express.json());
 
